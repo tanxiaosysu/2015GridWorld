@@ -74,7 +74,7 @@ public class CalculatorFrame extends JFrame implements ActionListener {
 
         setResizable(false);
         setVisible(true);
-        setSize(560, 260);
+        setSize(560, 230);
         setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
     }
 
