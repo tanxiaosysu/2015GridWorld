@@ -67,8 +67,8 @@ public class CalculatorFrame extends JFrame implements ActionListener {
         add(ResultJLabel);
         add(Add);
         add(Dec);
-        add(Div);
         add(Mul);
+        add(Div);
         add(Equ);
         // add end
 
@@ -89,39 +89,39 @@ public class CalculatorFrame extends JFrame implements ActionListener {
         String CalcType = e.getActionCommand();
         // use switch to pass attributes to CalculatorLogic
         switch (CalcType) {
-        case "+":
-            TypeJLabel.setText("+");
-            calculator.setCurrentType("add");
-            break;
-        case "-":
-            TypeJLabel.setText("-");
-            calculator.setCurrentType("dec");
-            break;
-        case "*":
-            TypeJLabel.setText("*");
-            calculator.setCurrentType("mul");
-            break;
-        case "/":
-            TypeJLabel.setText("/");
-            calculator.setCurrentType("div");
-            break;
-        case "OK":
-            // use pattern to judge valid input
-            Pattern patternAttr = Pattern.compile("^[-+]?[0-9]*\\.?[0-9]+$");
-            Matcher matcherAttr1 = patternAttr.matcher(Attr1.getText());
-            Matcher matcherAttr2 = patternAttr.matcher(Attr2.getText());
-            if ((!matcherAttr1.matches()) || (!matcherAttr2.matches())) {
-                ResultJLabel.setText("Wrong Input!");
+            case "+":
+                TypeJLabel.setText("+");
+                calculator.setCurrentType("add");
                 break;
-            }
-            // pattern end
-            calculator.setAttr1(Double.parseDouble(Attr1.getText()));
-            calculator.setAttr2(Double.parseDouble(Attr2.getText()));
-            calculator.calculate();
-            ResultJLabel.setText(Double.toString(calculator.getResult()));
-            break;
-        default:
-            break;
+            case "-":
+                TypeJLabel.setText("-");
+                calculator.setCurrentType("dec");
+                break;
+            case "*":
+                TypeJLabel.setText("*");
+                calculator.setCurrentType("mul");
+                break;
+            case "/":
+                TypeJLabel.setText("/");
+                calculator.setCurrentType("div");
+                break;
+            case "OK":
+                // use pattern to judge valid input
+                Pattern patternAttr = Pattern.compile("^[-+]?[0-9]*\\.?[0-9]+$");
+                Matcher matcherAttr1 = patternAttr.matcher(Attr1.getText());
+                Matcher matcherAttr2 = patternAttr.matcher(Attr2.getText());
+                if ((!matcherAttr1.matches()) || (!matcherAttr2.matches())) {
+                    ResultJLabel.setText("Wrong Input!");
+                    break;
+                }
+                // pattern end
+                calculator.setAttr1(Double.parseDouble(Attr1.getText()));
+                calculator.setAttr2(Double.parseDouble(Attr2.getText()));
+                calculator.calculate();
+                ResultJLabel.setText(Double.toString(calculator.getResult()));
+                break;
+            default:
+                break;
         }
     }
 }
