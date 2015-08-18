@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-    <project name="javacTest" default="compile" basedir=".">
+    <project name="HelloWorld" default="compile" basedir=".">
         <!-- ant的清理:
              清理编译生成的class -->
         <target name="clean">
