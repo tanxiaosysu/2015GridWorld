@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-<<<<<<< HEAD
     <project name="javacTest" default="compile" basedir=".">
         <!-- ant的清理:
              清理编译生成的class -->
@@ -40,4 +39,3 @@
 		</java>
 	</target>
 </project>
->>>>>>> 281e3ba27f5de339f07c09fd87225fd272419cf1
