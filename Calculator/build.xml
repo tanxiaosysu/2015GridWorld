@@ -17,8 +17,7 @@
              运行依赖于编译
              使用fork避免UI的闪退
              java任务指定classpath -->
-        <target name="run" depends="compile" fork="true">
-            <java classname="CalculatorFrame" classpath="build/classes">
-            </java>
+        <target name="run" depends="compile">
+            <java classname="CalculatorFrame" classpath="build/classes" fork="true" />
         </target>
     </project>
