@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<<<<<<< HEAD
     <project name="javacTest" default="compile" basedir=".">
         <!-- ant的清理:
              清理编译生成的class -->
@@ -22,3 +23,21 @@
             </java>
         </target>
     </project>
+=======
+<project name="javacTest" default="compile" basedir=".">
+	<target name="clean">
+		<delete dir="build" />
+	</target>
+	<target name="compile" depends="clean">
+		<mkdir dir="build/classes" />
+		<javac srcdir="src" destdir="build/classes" />
+	</target>
+	<target name="run" depends="compile">
+		<java classname="CalculatorFrame">
+			<classpath>
+				<pathelement path="build/classes" />
+			</classpath>
+		</java>
+	</target>
+</project>
+>>>>>>> 281e3ba27f5de339f07c09fd87225fd272419cf1
