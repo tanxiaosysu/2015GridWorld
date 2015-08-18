@@ -1,17 +1,24 @@
 <?xml version="1.0"?>
-<project name="javacTest" default="compile" basedir=".">
-	<target name="clean">
-		<delete dir="build" />
-	</target>
-	<target name="compile" depends="clean">
-		<mkdir dir="build/classes" />
-		<javac srcdir="src" destdir="build/classes" />
-	</target>
-	<target name="run" depends="compile">
-		<java classname="HelloWorldTX">
-			<classpath>
-				<pathelement path="build/classes" />
-			</classpath>
-		</java>
-	</target>
-</project>
+    <project name="javacTest" default="compile" basedir=".">
+        <!-- ant的清理:
+             清理编译生成的class -->
+        <target name="clean">
+            <delete dir="build" />
+        </target>
+        <!-- ant的编译:
+             编译依赖于清理,以保证程序为最新
+             mkdir建立生成目录
+             javac任务指定源路径 目标路径 -->
+        <target name="compile" depends="clean">
+            <mkdir dir="build/classes" />
+            <javac srcdir="src" destdir="build/classes" />
+        </target>
+        <!-- ant的运行:
+             运行依赖于编译
+             使用fork避免UI的闪退
+             java任务指定classpath -->
+        <target name="run" depends="compile" fork="true">
+            <java classname="HelloWorldTX" classpath="build/classes">
+            </java>
+        </target>
+    </project>
