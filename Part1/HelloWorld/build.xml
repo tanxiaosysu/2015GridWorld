@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<project name="HelloWorld" default="run" basedir=".">
+    <property name="build.dir" value="build" />
+    <property name="src.dir" value="src" />
+    <property name="lib.dir" value="../libs" />
+    <!-- ant的清理:
+             清理编译生成的class -->
+    <target name="clean">
+        <delete dir="${build.dir}" />
+    </target>
+    <!-- ant的编译:
+             编译依赖于清理,以保证程序为最新
+             mkdir建立生成目录
+             javac任务指定源路径 目标路径 -->
+    <target name="compile" depends="clean">
+        <mkdir dir="${build.dir}" />
+        <javac srcdir="${src.dir}" destdir="${build.dir}" />
+    </target>
+    <!-- ant的运行:
+             运行依赖于编译
+             使用fork避免UI的闪退
+             java任务指定classpath -->
+    <target name="run" depends="compile">
+        <java classname="HelloWorldTX" classpath="${build.dir}/" fork="true" />
+    </target>
+</project>

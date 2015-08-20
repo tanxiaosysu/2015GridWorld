@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<project name="firstProject" default="run" basedir=".">
+    <property name="build.dir" value="build" />
+    <property name="src.dir" value="src" />
+    <property name="lib.dir" value="../libs" />
+    <path id="lib_classpath">
+        <fileset dir="../${lib.dir}/">
+            <include name="gridworld.jar" />
+        </fileset>
+    </path>
+    <!-- ant的清理:
+             清理编译生成的class -->
+    <target name="clean">
+        <delete dir="${build.dir}" />
+    </target>
+    <!-- ant的编译:
+             编译依赖于清理,以保证程序为最新
+             mkdir建立生成目录
+             javac任务指定源路径 目标路径 -->
+    <target name="compile" depends="clean">
+        <mkdir dir="${build.dir}" />
+        <javac srcdir="${src.dir}" destdir="${build.dir}">
+            <classpath refid="lib_classpath" />
+        </javac>
+    </target>
+    <!-- ant的运行:
+             运行依赖于编译
+             使用fork避免UI的闪退
+             java任务指定classpath -->
+    <target name="run" depends="compile">
+        <java classname="BugRunner" classpath="${build.dir}/" fork="true">
+            <classpath refid="lib_classpath" />
+        </java>
+    </target>
+</project>
