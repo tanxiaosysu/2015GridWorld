@@ -12,27 +12,31 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * 
- * @author Cay Horstmann
  * @author Chris Nevison
  * @author Barbara Cloud Wells
+ * @author Cay Horstmann
  */
 
+import java.awt.Color;
+
+import info.gridworld.actor.ActorWorld;
+import info.gridworld.actor.Rock;
 import info.gridworld.grid.Location;
 
 /**
- * This class runs a world that contains box bugs. <br />
+ * This class runs a world that contains chameleon critters. <br />
  * This class is not tested on the AP CS A and AB exams.
  */
-public final class LocationDemo {
+public final class BlusterRunner {
     public static void main(String[] args) {
-        Location loc1 = new Location(4, 3);
-        Location loc2 = new Location(3, 4);
-        Location loc3 = loc2.getAdjacentLocation(Location.SOUTH);
-        int dir = loc1.getDirectionToward(new Location(6, 5));
-        System.out.println(dir);
+        ActorWorld world = new ActorWorld();
+        world.add(new Location(2, 8), new Rock(Color.PINK));
+        world.add(new Location(4, 4), new BlusterCritter(2));
+        world.add(new Location(5, 8), new BlusterCritter(3));
+        world.show();
     }
 
-    private LocationDemo() {
-        // never call
+    private BlusterRunner() {
+        // never use
     }
 }

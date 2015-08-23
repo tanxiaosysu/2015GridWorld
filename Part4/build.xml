@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<project name="Part4"
+         default="all"
+         basedir="."
+         xmlns:sonar="antlib:org.sonar.ant">
+    <property name="build.dir" value="build" />
+    <property name="src.dir" value="src" />
+    <property name="lib.dir" value="../libs" />
+    <!-- Define the Sonar properties -->
+    <property name="sonar.projectKey" value="2015GridWorld.Part4" />
+    <property name="sonar.projectName" value="Part4" />
+    <property name="sonar.projectVersion" value="1.0" />
+    <property name="sonar.language" value="java" />
+    <property name="sonar.sources" value="${src.dir}" />
+    <property name="sonar.binaries" value="${build.dir}" />
+    <property name="sonar.sourceEncoding" value="UTF-8" />
+    <!-- Define compelete -->
+    <path id="lib.run">
+        <fileset dir="${lib.dir}/">
+            <include name="gridworld.jar" />
+        </fileset>
+    </path>
+    <!-- ant的清理:
+             清理编译生成的class -->
+    <target name="clean">
+        <delete dir="${build.dir}" />
+    </target>
+    <!-- ant的编译:
+             编译依赖于清理,以保证程序为最新
+             mkdir建立生成目录
+             javac任务指定源路径 目标路径 -->
+    <target name="compile" depends="clean">
+        <mkdir dir="${build.dir}" />
+        <copy todir="${build.dir}">
+            <fileset dir="${src.dir}/">
+                <include name="*.gif" />
+            </fileset>
+        </copy>
+        <javac srcdir="${src.dir}" destdir="${build.dir}">
+            <classpath refid="lib.run" />
+        </javac>
+    </target>
+    <!-- ant的运行:
+             运行依赖于编译
+             使用fork避免UI的闪退
+             java任务指定classpath -->
+    <target name="run_critter" depends="compile">
+        <java classname="CritterRunner" classpath="${build.dir}/" fork="true">
+            <classpath refid="lib.run" />
+        </java>
+    </target>
+    <target name="run_chameleon" depends="run_critter">
+        <java classname="ChameleonRunner" classpath="${build.dir}/" fork="true">
+            <classpath refid="lib.run" />
+        </java>
+    </target>
+    <target name="run_crab" depends="run_chameleon">
+        <java classname="CrabRunner" classpath="${build.dir}/" fork="true">
+            <classpath refid="lib.run" />
+        </java>
+    </target>
+    <target name="run_chamkid" depends="run_crab">
+        <java classname="ChameleonKidRunner"
+              classpath="${build.dir}/"
+              fork="true">
+            <classpath refid="lib.run" />
+        </java>
+    </target>
+    <target name="run_rockhound" depends="run_chamkid">
+        <java classname="RockHoundRunner" classpath="${build.dir}/" fork="true">
+            <classpath refid="lib.run" />
+        </java>
+    </target>
+    <target name="run_bulster" depends="run_rockhound">
+        <java classname="BlusterRunner" classpath="${build.dir}/" fork="true">
+            <classpath refid="lib.run" />
+        </java>
+    </target>
+    <target name="run_quick" depends="run_bulster">
+        <java classname="QuickCrabRunner" classpath="${build.dir}/" fork="true">
+            <classpath refid="lib.run" />
+        </java>
+    </target>
+    <target name="run_king" depends="run_quick">
+        <java classname="KingCrabRunner" classpath="${build.dir}/" fork="true">
+            <classpath refid="lib.run" />
+        </java>
+    </target>
+
+    <target name="all" depends="run_king">
+    </target>
+    <!-- ========= Define Sonar target ========= -->
+    <target name="sonar" depends="compile">
+        <taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml">
+            <!-- Update the following line,
+                 or put the "sonar-ant-task-*.jar" file
+                 in your "$HOME/.ant/lib" folder -->
+            <classpath path="path/to/sonar/ant/task/lib/sonar-ant-task-*.jar" />
+        </taskdef>
+        <!-- Execute Sonar -->
+        <sonar:sonar />
+    </target>
+</project>
