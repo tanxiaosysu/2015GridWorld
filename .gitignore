@@ -1,8 +1,5 @@
 /*/.sonar
-/Part1/*/build
-/Part2/build
-/Part3/build
-/Part3/test
-/Part4/build
-/Part5
+/*/build
+/*/*/build
+/*/test
 GridWorldCode
