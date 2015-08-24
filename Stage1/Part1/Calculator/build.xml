@@ -2,7 +2,7 @@
 <project name="Calculator" default="run" basedir=".">
     <property name="build.dir" value="build" />
     <property name="src.dir" value="src" />
-    <property name="lib.dir" value="../libs" />
+    <property name="lib.dir" value="../../libs" />
     <path id="lib_classpath">
         <fileset dir="../${lib.dir}/">
             <include name="junit-4.12.jar" />
@@ -35,6 +35,6 @@
     </target>
     <!-- ant的JUnit -->
     <target name="test" depends="compile">
-        <exec command="java -classpath build:../../libs/junit-4.12.jar:../../libs/hamcrest-core-1.3.jar -ea org.junit.runner.JUnitCore CalculatorLogicTest" />
+        <exec command="java -classpath build:../../../libs/junit-4.12.jar:../../../libs/hamcrest-core-1.3.jar -ea org.junit.runner.JUnitCore CalculatorLogicTest" />
     </target>
 </project>

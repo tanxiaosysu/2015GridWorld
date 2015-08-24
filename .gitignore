@@ -1,5 +1,7 @@
-/*/.sonar
-/*/build
-/*/*/build
-/*/test
+/Stage*/*/.sonar
+/Stage*/*/build
+/Stage*/*/*/build
+/Stage*/*/test
+/Stage*/*/bin
+/Stage*/*/junit
 GridWorldCode

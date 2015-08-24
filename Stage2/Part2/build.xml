@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
-<project name="Part5"
+<project name="Part2"
          default="all"
          basedir="."
          xmlns:sonar="antlib:org.sonar.ant">
     <property name="build.dir" value="build" />
     <property name="src.dir" value="src" />
-    <property name="lib.dir" value="../libs" />
+    <property name="lib.dir" value="../../libs" />
     <!-- Define the Sonar properties -->
-    <property name="sonar.projectKey" value="2015GridWorld.Part5" />
-    <property name="sonar.projectName" value="Part5" />
+    <property name="sonar.projectKey" value="2015GridWorld.Part2" />
+    <property name="sonar.projectName" value="Part2" />
     <property name="sonar.projectVersion" value="1.0" />
     <property name="sonar.language" value="java" />
     <property name="sonar.sources" value="${src.dir}" />
     <property name="sonar.binaries" value="${build.dir}" />
     <property name="sonar.sourceEncoding" value="UTF-8" />
     <!-- Define compelete -->
-    <path id="lib.run">
+    <path id="lib_classpath">
         <fileset dir="${lib.dir}/">
             <include name="gridworld.jar" />
         </fileset>
@@ -31,27 +31,43 @@
              javac任务指定源路径 目标路径 -->
     <target name="compile" depends="clean">
         <mkdir dir="${build.dir}" />
-        <copy todir="${build.dir}">
-            <fileset dir="${src.dir}/">
-                <include name="*.gif" />
-            </fileset>
-        </copy>
         <javac srcdir="${src.dir}" destdir="${build.dir}">
-            <classpath refid="lib.run" />
+            <classpath refid="lib_classpath" />
         </javac>
     </target>
     <!-- ant的运行:
              运行依赖于编译
              使用fork避免UI的闪退
              java任务指定classpath -->
-    <target name="run_sparse" depends="compile">
-        <java classname="SparseGridRunner" classpath="${build.dir}/" fork="true">
-            <classpath refid="lib.run" />
+    <target name="run_box" depends="compile">
+        <java classname="BoxBugRunner" classpath="${build.dir}/" fork="true">
+            <classpath refid="lib_classpath" />
         </java>
     </target>
-
-    <target name="all" depends="run_sparse">
+    <target name="run_circle" depends="compile">
+        <java classname="CircleBugRunner" classpath="${build.dir}/" fork="true">
+            <classpath refid="lib_classpath" />
+        </java>
     </target>
+    <target name="run_spiral" depends="compile">
+        <java classname="SpiralBugRunner" classpath="${build.dir}/" fork="true">
+            <classpath refid="lib_classpath" />
+        </java>
+    </target>
+    <target name="run_z" depends="compile">
+        <java classname="ZBugRunner" classpath="${build.dir}/" fork="true">
+            <classpath refid="lib_classpath" />
+        </java>
+    </target>
+    <target name="run_dancing" depends="compile">
+        <java classname="DancingBugRunner"
+              classpath="${build.dir}/"
+              fork="true">
+            <classpath refid="lib_classpath" />
+        </java>
+    </target>
+    <target name="all"
+            depends="run_box,run_circle,run_spiral,run_z,run_dancing" />
     <!-- ========= Define Sonar target ========= -->
     <target name="sonar" depends="compile">
         <taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml">

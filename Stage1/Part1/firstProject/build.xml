@@ -2,7 +2,7 @@
 <project name="firstProject" default="run" basedir=".">
     <property name="build.dir" value="build" />
     <property name="src.dir" value="src" />
-    <property name="lib.dir" value="../libs" />
+    <property name="lib.dir" value="../../libs" />
     <path id="lib_classpath">
         <fileset dir="../${lib.dir}/">
             <include name="gridworld.jar" />
