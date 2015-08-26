@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="."
+         default="all"
+         name="Jigsaw"
+         xmlns:sonar="antlib:org.sonar.ant">
+    <property environment="env" />
+    <property name="debuglevel" value="source,lines,vars" />
+    <property name="target" value="1.8" />
+    <property name="source" value="1.8" />
+    <path id="Jigsaw.classpath">
+        <pathelement location="bin" />
+    </path>
+
+    <!-- Define the Sonar properties -->
+    <property name="sonar.projectKey" value="2015GridWorld.Stage3.Jigsaw" />
+    <property name="sonar.projectName" value="Stage3.Jigsaw" />
+    <property name="sonar.projectVersion" value="1.0" />
+    <property name="sonar.language" value="java" />
+    <property name="sonar.sources" value="src" />
+    <property name="sonar.binaries" value="bin" />
+    <property name="sonar.sourceEncoding" value="UTF-8" />
+    <!-- Define compelete -->
+
+    <target name="init">
+        <mkdir dir="bin" />
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java" />
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin" />
+    </target>
+    <target depends="clean" name="cleanall" />
+    <target depends="cleanall,build-subprojects,build-project" name="build" />
+    <target name="build-subprojects" />
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}" />
+        <javac debug="true"
+               debuglevel="${debuglevel}"
+               destdir="bin"
+               includeantruntime="false"
+               source="${source}"
+               target="${target}">
+            <src path="src" />
+            <classpath refid="Jigsaw.classpath" />
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes."
+            name="build-refprojects" />
+    <target description="copy Eclipse compiler jars to ant lib directory"
+            name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins"
+                     includes="org.eclipse.jdt.core_*.jar" />
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar" />
+            <fileset dir="${ECLIPSE_HOME}/plugins"
+                     includes="org.eclipse.jdt.core_*.jar" />
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler"
+            name="build-eclipse-compiler">
+        <property name="build.compiler"
+                  value="org.eclipse.jdt.core.JDTCompilerAdapter" />
+        <antcall target="build" />
+    </target>
+    <target name="RunnerDemo">
+        <java classname="Runners.RunnerDemo" failonerror="true" fork="yes">
+            <classpath refid="Jigsaw.classpath" />
+        </java>
+    </target>
+    <target name="RunnerPart1">
+        <java classname="Runners.RunnerPart1" failonerror="true" fork="yes">
+            <classpath refid="Jigsaw.classpath" />
+        </java>
+    </target>
+    <target name="RunnerPart2">
+        <java classname="Runners.RunnerPart2" failonerror="true" fork="yes">
+            <classpath refid="Jigsaw.classpath" />
+        </java>
+    </target>
+
+    <target name="all" depends="build,RunnerPart2" />
+
+    <!-- ========= Define Sonar target ========= -->
+    <target name="sonar" depends="build">
+        <taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml">
+            <!-- Update the following line,
+                               or put the "sonar-ant-task-*.jar" file
+                               in your "$HOME/.ant/lib" folder -->
+            <classpath path="path/to/sonar/ant/task/lib/sonar-ant-task-*.jar" />
+        </taskdef>
+        <!-- Execute Sonar -->
+        <sonar:sonar />
+    </target>
+</project>
