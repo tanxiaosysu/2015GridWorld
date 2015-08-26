@@ -106,12 +106,18 @@ public class ImageIOTanX implements IImageIO {
                     for (int i = 0; i < imageWidth; i++) {
                         // 由于文件的像素是从下往上排列,而数组要求是从上往下,所以要用loc定位数组
                         int loc = imageWidth * (imageHeight - j - 1) + i;
+                        int colorR = colorTable[(rgbDataBytes[index] & AND) * 4
+                                + 2] & AND;
+                        int colorG = colorTable[(rgbDataBytes[index] & AND) * 4
+                                + 1] & AND;
+                        int colorB = colorTable[(rgbDataBytes[index] & AND) * 4]
+                                & AND;
                         // 此处255代表透明度
                         // 灰度可以考虑把RGB统一为那个数字
                         rgbData[loc] = ((255 & AND) << 24)
-                                | ((rgbDataBytes[index] & AND) << 16)
-                                | ((rgbDataBytes[index] & AND) << 8)
-                                | (rgbDataBytes[index] & AND);
+                                | (colorR << 16)
+                                | (colorG << 8)
+                                | (colorB);
                         index += 1;
                     }
                     index += fillBlankBytes;
