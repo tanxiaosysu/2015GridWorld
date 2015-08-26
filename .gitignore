@@ -4,5 +4,6 @@
 /Stage*/*/test
 /Stage*/*/bin
 /Stage*/*/junit
-/Stage*/*/*.txt
+/Stage*/*/ASearchDialog.txt
+/Stage*/*/BFSearchDialog.txt
 GridWorldCode

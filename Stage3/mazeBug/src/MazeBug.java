@@ -68,10 +68,11 @@ public class MazeBug extends Bug {
             ArrayList<Location> curCrossed = crossLocation.peek();
             curCrossed.remove(curCrossed.size() - 1);
             next = curCrossed.get(curCrossed.size() - 1);
-            // 当前方向的概率-1
-            probablyDir[getDirection() / 90]--;
             move();
             stepCount++;
+            // 当前方向反向的概率-1
+            probablyDir[((getDirection() + Location.HALF_CIRCLE)
+                    % Location.FULL_CIRCLE) / Location.RIGHT]--;
             if (curCrossed.size() == 1) {
                 // 返回之后pop
                 crossLocation.pop();
@@ -92,10 +93,10 @@ public class MazeBug extends Bug {
             return null;
         }
         ArrayList<Location> valid = new ArrayList<Location>();
-        // 向上下左右四个方向找
+        // 向上右下左四个方向找
         int dirs[] = {
-                Location.AHEAD, Location.HALF_CIRCLE, Location.LEFT,
-                Location.RIGHT };
+                Location.AHEAD, Location.RIGHT, Location.HALF_CIRCLE,
+                Location.LEFT };
         for (int i = 0; i < dirs.length; i++) {
             Location tarLoc = loc.getAdjacentLocation(dirs[i]);
             if (gr.isValid(tarLoc)) {
